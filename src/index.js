@@ -93,15 +93,7 @@ class Client {
   }
 
   async getHistory(addresses, witnesses, updateWitnesses = false) {
-    let witnessesList = witnesses;
-
-    if (!witnessesList) {
-      if (updateWitnesses) {
-        witnessesList = await this.getWitnesses(true);
-      } else {
-        witnessesList = this.witnesses || await this.getWitnesses();
-      }
-    }
+    const witnessesList = witnesses || await this.getWitnesses(updateWitnesses);
 
     return await this.#request("get_history", { addresses, witnesses: witnessesList });
   }
