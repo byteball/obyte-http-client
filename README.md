@@ -33,7 +33,9 @@ const witnesses = obyteClientInstance.getWitnesses();
 ### getWitnesses - Returns list of the current witnesses.
 
 ```js
-const witnesses = obyteClientInstance.getWitnesses();
+const witnesses = obyteClientInstance.getWitnesses(); // use cache
+
+const witnesses = obyteClientInstance.getWitnesses(true); // update every time
 ```
 
 ### getPeers - Returns the list of the current peers.

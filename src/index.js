@@ -14,6 +14,8 @@ class Client {
       }
     }
 
+    this.witnesses = null;
+
     this.#request = async (path, body = {}) => {
       const response = await fetch(`${this.hubAddress}/${path}`, {
         headers: {
@@ -26,7 +28,12 @@ class Client {
 
       if (!response.ok) {
         const errorBody = await response.text();
-        const errorObject = errorBody && JSON.parse(errorBody);
+        let errorObject = {};
+
+        try {
+          errorObject = errorBody && JSON.parse(errorBody);
+        } catch { }
+
         if (errorObject && ("error" in errorObject)) {
           throw new Error(errorObject.error);
         } else {
@@ -53,8 +60,13 @@ class Client {
     return await this.#request("get_peers");
   }
 
-  async getWitnesses() {
-    return await this.#request("get_witnesses");
+  async getWitnesses(update = false) {
+    if (this.witnesses && !update) {
+      return this.witnesses;
+    } else {
+      this.witnesses = await this.#request("get_witnesses");
+      return this.witnesses;
+    }
   }
 
   async getJoint(unit) {
@@ -80,8 +92,17 @@ class Client {
     return await this.#request("get_data_feed", { oracles, feed_name, ifnone });
   }
 
-  async getHistory(addresses, witnesses) {
-    const witnessesList = witnesses || await this.getWitnesses();
+  async getHistory(addresses, witnesses, updateWitnesses = false) {
+    let witnessesList = witnesses;
+
+    if (!witnessesList) {
+      if (updateWitnesses) {
+        witnessesList = await this.getWitnesses(true);
+      } else {
+        witnessesList = this.witnesses || await this.getWitnesses();
+      }
+    }
+
     return await this.#request("get_history", { addresses, witnesses: witnessesList });
   }
 
