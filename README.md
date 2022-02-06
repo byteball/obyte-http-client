@@ -50,12 +50,6 @@ const peers = obyteClientInstance.getPeers();
 const joint = obyteClientInstance.getJoint('k37Xlns198EHCtubX5X0kqbrnC9XYVTa0aFpR78gidM=');
 ```
 
-### getLastMci - Request data of a specific unit.
-
-```js
-const last_mci = obyteClientInstance.getLastMci();
-```
-
 ### getLastMci - Get the last main chain index of the node you logged to.
 
 ```js
