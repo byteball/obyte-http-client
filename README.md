@@ -144,3 +144,9 @@ const response_chain = obyteClientInstance.getAaResponseChain("QjJsukONZ57VBVtLk
 ```js
 const result = obyteClientInstance.executeGetter("VLKI3XMMX5YULOBA6ZXBXDPI6TXF6V3D", "get_exchange_result", [0, 100]);
 ```
+
+## Donations
+
+To support our work, donate through kivach.org.
+
+[![Kivach](https://kivach.org/api/banner?repo=byteball/obyte-http-client)](https://kivach.org/repo/byteball/obyte-http-client)
