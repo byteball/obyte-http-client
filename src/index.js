@@ -149,8 +149,8 @@ class Client {
     return await this.#request("get_aa_balances", { address }).then(data => data.balances);
   }
 
-  async getAaStateVars(address, var_prefix) {
-    return await this.#request("get_aa_state_vars", { address, var_prefix });
+  async getAaStateVars(address, var_prefix, var_prefix_from = undefined, var_prefix_to = undefined) {
+    return await this.#request("get_aa_state_vars", { address, var_prefix, var_prefix_from, var_prefix_to });
   }
 }
 
